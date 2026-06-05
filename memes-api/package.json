@@ -1,0 +1,65 @@
+{
+  "name": "koishi-plugin-gouqi-memes-api-custom",
+  "description": "自用，基于 Python 版 meme 后端的 Koishi 表情包插件自定义分支",
+  "version": "2.1.12",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p .",
+    "dev": "tsc -p . --watch",
+    "build:console": "koishi-console build"
+  },
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin",
+    "meme",
+    "memes",
+    "meme-generator",
+    "petpet",
+    "表情包",
+    "头像表情包",
+    "表情包制作",
+    "表情包生成",
+    "梗",
+    "梗图",
+    "迷因"
+  ],
+  "koishi": {
+    "description": {
+      "zh": "自用，基于 Python 版 meme 后端的 Koishi 表情包插件自定义分支"
+    },
+    "service": {
+      "required": [
+        "http"
+      ],
+      "optional": [
+        "notifier"
+      ],
+      "implements": [
+        "memesApi"
+      ]
+    },
+    "locales": [
+      "zh"
+    ]
+  },
+  "peerDependencies": {
+    "@satorijs/element": "^3.1.8",
+    "koishi": "^4.18.9"
+  },
+  "dependencies": {
+    "meme-generator-api": "^0.1.0",
+    "p-limit": "^7.2.0"
+  },
+  "optionalDependencies": {
+    "@koishijs/plugin-help": "^2.4.6",
+    "@koishijs/plugin-notifier": "^1.2.1",
+    "koishi-plugin-adapter-onebot": "^6.8.0"
+  }
+}
