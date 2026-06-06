@@ -1,82 +1,67 @@
 commands:
-  memes-api:
-    description: 制作各种沙雕表情包
-  memes-api.list:
-    description: 查看表情列表
-  memes-api.info:
-    description: 查看表情详情（支持模糊搜索及按标签搜索）
-  memes-api.generate:
-    description: |-
-      生成表情包（每个表情生成指令会注册为本指令的子指令）
+  meme:
+    description: 制作各种表情包
+  meme.list:
+    description: 查看表情包列表
+  meme.info:
+    description: 查看表情包详情
+  meme.generate:
+    description: 生成表情包，每个表情会注册为本命令的子命令
     usage: |-
-      可使用 `自己`，`@自己`，`@某人`，`@用户ID` 格式的参数使用对应用户的头像作为图片参数输入。
-      可在使用指令的同时回复消息，被回复消息中的图片将会作为图片参数输入。
-      每张图片会附带一个图片名，使用用户头像作为输入时，会将用户昵称作为图片名，否则使用发送者昵称作为图片名。
-      可使用且可使用多次 `#名称` 格式的参数覆盖原位置上的图片名。
+      可使用 `自己`、`@自己`、`@某人`、`@用户ID` 作为头像输入。
+      可在使用命令时回复带图消息，被回复消息中的图片会作为图片参数输入。
+      可使用多个 `#名称` 参数覆盖对应位置的图片名称。
     examples: |-
       meme generate 5000兆 我去 洛天依
-      meme generate rua -圆 @自己
+      meme generate rua @自己
       meme generate steam消息 #一大块小饼干 "Visual Studio Code"
-  memes-api.random:
+  meme.random:
     description: 生成随机表情
-  memes-api.md5:
+  meme.md5:
     description: 计算图片 MD5
 
 memes-api:
   errors:
-    # 插件
     syntax-error:
-      unexpected-char: 参数语法错误，遇到意外字符 {char} ( 索引 {index} )，如果是左引号请考虑使用反斜杠转义。
-      unterminated-quote: 参数语法错误，遇到未闭合引号 {char} ( 索引 {index} )。
-    can-not-get-avatar: 无法获取平台 {platform} 中 ID 为 {userId} 的用户的头像信息。
+      unexpected-char: 参数语法错误，遇到意外字符 {char}（索引 {index}），如需原样输入请使用反斜杠转义。
+      unterminated-quote: 参数语法错误，存在未闭合的引号 {char}（索引 {index}）。
+    can-not-get-avatar: 无法获取平台 {platform} 中 ID 为 {userId} 的用户头像。
     download-image-failed: 下载图片失败。
     option-type-mismatch:
-      number: 选项 {0} 类型不符，应为数值。
-    option-number-too-small: 选项 {0} 数值过小，应大于 {1}。
-    option-number-too-big: 选项 {0} 数值过大，应小于 {1}。
+      number: 选项 {0} 类型不正确，应为数字。
+    option-number-too-small: 选项 {0} 的值过小，应不小于 {1}。
+    option-number-too-big: 选项 {0} 的值过大，应不大于 {1}。
     md5-no-image: 请附带或回复 1 张图片。
-    md5-too-many-images: 只能计算 1 张图片的 MD5，请只提供 1 张图片。
+    md5-too-many-images: 一次只能计算 1 张图片的 MD5，请只提供 1 张图片。
     md5-unsupported-avatar-input: 暂不支持通过 @用户 或 @自己 计算头像 MD5，请直接发送图片。
     md5-compute-failed: 计算图片 MD5 失败。
-
-    # 通用
     no-such-meme: 未找到表情 {0}。
-    image-number-mismatch: 输入图片数量不符，图片数量应为 {0}，但当前为 {1}。
-    text-number-mismatch: 输入文字数量不符，文字数量应为 {0}，但当前为 {1}。
-
-    # 仅 API 返回
-    image-decode: 图片解码失败：{0}。
-    image-encode: 图片编码失败：{0}。
-    image-asset-missing: 缺少图片资源：{0}。
-    deserialize: 表情选项解析出错：{0}。
-    text-over-length: 输入文字过长。
-    meme-feedback: '{0}。'
-
-    other-error: 发生其他错误：({0}) {1}。
+    image-number-mismatch: 输入图片数量不符合要求，应为 {0}，当前为 {1}。
+    text-number-mismatch: 输入文字数量不符合要求，应为 {0}，当前为 {1}。
+    text-over-length: 输入文本过长。
+    meme-feedback: '{0}'
+    other-error: 发生错误：{0}
 
   list:
     tip: |-
       触发方式：“关键词 + 图片/文字”
-      发送 “表情详情 + 关键词” 查看表情参数和预览
-      目前支持的表情列表：
+      发送“表情详情 + 关键词”查看参数与预览
+      当前支持的表情列表：
       {0}
     tip-no-shortcut: |-
-      触发指令：“meme generate <关键词/序号> [...图片/文字]”
-      发送指令 “meme info <关键词/序号>” 查看表情参数和预览
-      目前支持的表情列表：
+      触发命令：“meme generate <关键词> [...图片/文字]”
+      发送 “meme info <关键词>” 查看参数与预览
+      当前支持的表情列表：
       {0}
 
   info:
-    multiple-tip-head: 搜索到多个可能结果：
-    multiple-tip-tail: 如有您想要的结果，请修改参数重新查询。
     key: 表情名：{0}
     keywords: 关键词：{0}
     shortcuts: 快捷指令：{0}
-    image-num: 需要图片数目：{0}
-    text-num: 需要文字数目：{0}
+    image-num: 需要图片数量：{0}
+    text-num: 需要文字数量：{0}
     default-texts: 默认文字：{0}
-    option: ' * {0}{1} - {2}'
-    option-sep: ' | '
+    option: ' * {0} - {1}'
     options: |-
       可选参数：
       {0}
@@ -85,62 +70,51 @@ memes-api:
       {0}
 
   random:
-    no-suitable-meme: 找不到符合当前已提供参数信息的表情。
+    no-suitable-meme: 找不到符合当前输入参数的表情。
     info: 关键词：{0}
 
   md5:
     result: 'MD5: {0}'
 
 _config:
-  - - - - $desc: 生成指令配置
-          enableShortcut: |-
-            是否注册类似原版 `memes` 插件的触发指令。  
-            例：`meme generate 5000兆 我去 洛天依` -> `5000兆 我去 洛天依`
-        - shortcutUsePrefix: 表情生成快捷指令是否需要携带指令前缀。
-          silentShortcut: 是否禁用使用原版触发指令时的 参数错误提示。
-      - moreSilent: 是否禁用使用原版触发指令时的 **所有** 错误提示。
-    - autoUseDefaultTexts: 是否在用户未提供文字时自动使用默认文字。
-      autoUseSenderAvatarWhenOnlyOne: 是否在仅需求一张图片且用户未提供时自动使用发送者头像。
-      autoUseSenderAvatarWhenOneLeft: 是否在用户已提供图片但距离最少需求图片数仅差 1 时自动使用发送者头像。
-      enableProtectedTargetSwap: 是否启用保护模式。启用后，当输入参数中艾特到受保护 QQ 时，会将本次生成中的发送者 QQ 与目标 QQ 互换。
-      protectedTargetUserId: 受保护的目标 QQ 号。仅在启用保护模式后生效。
-
+  - $desc: 生成指令配置
+    enableShortcut: 是否注册类似原版 `memes` 插件的快捷触发方式，例如 `5000兆 我去 洛天依`。
+    shortcutUsePrefix: 快捷触发是否需要带命令前缀。
+    silentShortcut: 快捷触发时是否关闭参数错误提示。
+    moreSilent: 快捷触发时是否进一步关闭更多错误提示。
+    autoUseDefaultTexts: 未提供文字时是否自动使用后端默认文字。
+    autoUseSenderAvatarWhenOnlyOne: 仅需要 1 张图片且未提供时，是否自动使用发送者头像。
+    autoUseSenderAvatarWhenOneLeft: 已提供部分图片且只差 1 张达到最小要求时，是否自动补发送者头像。
+    enableProtectedTargetSwap: 是否启用受保护目标互换。命中受保护 QQ 时，会交换发送者与目标头像位置。
+    protectedTargetUserIds: 受保护的目标 QQ 号列表。仅在启用保护模式后生效。
   - $desc: 图片保护配置
-    enableProtectedImageSwap: 是否启用图片 MD5 保护模式。启用后，当输入图片的 MD5 命中保护列表时，会将命中的图片位置替换为发送者头像。
-    protectedImageMd5List: 受保护图片 MD5 列表。仅检测用户直接发送或引用的图片，不检测 @用户 或 @自己的头像。
-
+    enableProtectedImageSwap: 是否启用图片 MD5 保护。命中列表中的图片会被替换为发送者头像。
+    protectedImageMd5List: 受保护图片的 MD5 列表，仅检测用户直接发送或引用的真实图片。
   - $desc: 表情列表配置
-    listSortByRs:
+    listSortBy:
       $desc: 表情排序方式。
       $inner:
+        - 默认
+        - 类型
         - 表情名
         - 关键词
-        - 关键词拼音
         - 创建时间
         - 修改时间
-    listSortReverse: 是否倒序排列。
-    listNewTimeDelta: 表情添加时间在该时间间隔（单位为天）以内时，在列表中添加新表情标识。
-    listNewStrategy:
-      $desc: 新表情标识的显示策略。
-      $inner:
-        - 创建时间
-        - 修改时间
-    listTextTemplate: |-
-      表情列表显示文字模板。  
-      可用变量：`{index}`（序号）、`{key}`（表情名）、`{keywords}`（关键词）、`{shortcuts}`（快捷指令）、`{tags}`（标签）
-    searchListTextTemplate: 表情信息模糊搜索出现多个结果时显示的文字模板。可用变量同上。
-    listAddCategoryIcon: 是否添加图标以表示表情类型，即“图片表情包”和“文字表情包”。
-
-  - $desc: 其他指令配置
-    randomMemeShowInfo: 使用 `meme random` 指令时是否同时发出表情关键词。
-    generateSubCommandCountToFather: 执行生成表情子指令时是否同时增加父指令的调用计数（对于 `rate-limit` 插件）。
-    randomCommandCountToGenerate: 执行 `meme random` 指令时是否同时增加 `meme generate` 指令的调用计数（对于 `rate-limit` 插件）。
-
+    listSortReverse: 是否倒序显示表情列表。
+    listNewTimeDelta: 在该时间范围内创建的表情会标记为“新”。单位：天。
+    listTextTemplate: 表情列表显示文字模板，可用变量：{index}、{key}、{keywords}、{shortcuts}、{tags}。
+    listAddCategoryIcon: 列表中是否显示表情类别图标。
+  - $desc: 其他命令配置
+    randomMemeShowInfo: 使用 `meme random` 时是否附带返回表情关键词。
+    generateSubCommandCountToFather: 执行表情子命令时，是否同时计入 `meme generate` 的调用次数。
+    randomCommandCountToGenerate: 执行 `meme random` 时，是否同时计入 `meme generate` 的调用次数。
   - $desc: 请求配置
-    requestConfig: &requestConfig
-      timeout: 等待连接建立的最长时间。
-      proxyAgent: 使用的代理服务器地址。
+    requestConfig:
+      timeout: 请求超时时间。
+      proxyAgent: 代理服务器地址。
       keepAlive: 是否保持连接。
-      endpoint: 要连接的服务器地址。
-      headers: 要附加的额外请求头。
-    requestConcurrency: 请求并发数。
+      endpoint: 后端服务地址。
+      headers: 额外附加的请求头。
+    getInfoConcurrency: 启动时拉取表情信息的并发数。
+  - $desc: 调试配置
+    debug: 是否输出调试日志。

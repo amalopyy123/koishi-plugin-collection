@@ -84,6 +84,11 @@ export async function apply(ctx: Context, config: Config) {
   const protectedImageMd5Set = new Set(
     config.protectedImageMd5List.map(normalizeMd5).filter(Boolean),
   )
+  const protectedTargetUserIdSet = new Set(
+    (config.protectedTargetUserIds ?? [])
+      .map((value) => value?.trim())
+      .filter((value): value is string => Boolean(value)),
+  )
 
   const cmdGenerate = ctx.$.cmd.subcommand('.generate').action(async ({ session }) => {
     if (session?.memesApi.inGenerateSubCommand) return
@@ -261,15 +266,17 @@ export async function apply(ctx: Context, config: Config) {
     resolveBuffer()
 
     let effectiveSenderUserId = senderUserId
-    const protectedTargetUserId =
-      config.enableProtectedTargetSwap && config.protectedTargetUserId
-        ? config.protectedTargetUserId.trim()
-        : ''
+    const protectedTargetInfo = config.enableProtectedTargetSwap
+      ? imageInfos.find(
+          (
+            info,
+          ): info is Extract<ImageFetchInfo, { kind: 'user' }> =>
+            info.kind === 'user' && protectedTargetUserIdSet.has(info.userId),
+        )
+      : undefined
+    const protectedTargetUserId = protectedTargetInfo?.userId ?? ''
 
-    if (
-      protectedTargetUserId &&
-      imageInfos.some((info) => info.kind === 'user' && info.userId === protectedTargetUserId)
-    ) {
+    if (protectedTargetUserId) {
       effectiveSenderUserId = protectedTargetUserId
       for (const info of imageInfos) {
         if (info.kind !== 'user') continue

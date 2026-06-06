@@ -11,7 +11,7 @@
 - Support keyword shortcut trigger
 - Support auto fill sender avatar in some image-missing cases
 - Support auto fill default texts
-- Support protected target user ID swap
+- Support protected target user ID swap, including multiple QQ numbers
 - Support protected image MD5 replacement
 - Support `meme md5` helper command for calculating image MD5
 
@@ -73,7 +73,7 @@ Compared with a plain upstream setup, this fork mainly adds or keeps the followi
 
 ### Protected Target Swap
 
-When `enableProtectedTargetSwap` is enabled and the input mentions a protected user ID, the plugin swaps the sender and protected target positions in the current generation flow.
+When `enableProtectedTargetSwap` is enabled and the input mentions any protected user ID, the plugin swaps the sender and protected target positions in the current generation flow.
 
 ### Protected Image MD5 Replacement
 
@@ -115,7 +115,7 @@ Important config items:
 - `autoUseSenderAvatarWhenOnlyOne`: auto fill sender avatar when only one image is required
 - `autoUseSenderAvatarWhenOneLeft`: auto fill sender avatar when one required image is still missing
 - `enableProtectedTargetSwap`: enable protected target swap
-- `protectedTargetUserId`: protected target user ID
+- `protectedTargetUserIds`: protected target user ID list
 - `enableProtectedImageSwap`: enable image MD5 protection
 - `protectedImageMd5List`: protected image MD5 list
 
@@ -133,7 +133,9 @@ plugins:
     autoUseSenderAvatarWhenOnlyOne: true
     autoUseSenderAvatarWhenOneLeft: true
     enableProtectedTargetSwap: false
-    protectedTargetUserId: ""
+    protectedTargetUserIds:
+      - "123456789"
+      - "987654321"
     enableProtectedImageSwap: true
     protectedImageMd5List:
       - d41d8cd98f00b204e9800998ecf8427e

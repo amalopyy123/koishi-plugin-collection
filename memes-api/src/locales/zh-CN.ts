@@ -4,10 +4,10 @@ const zhCNLocale: any = {
       description: '制作各种表情包',
     },
     'meme.list': {
-      description: '查看表情列表',
+      description: '查看表情包列表',
     },
     'meme.info': {
-      description: '查看表情详情',
+      description: '查看表情包详情',
     },
     'meme.generate': {
       description: '生成表情包，每个表情会注册为本命令的子命令',
@@ -92,12 +92,13 @@ const zhCNLocale: any = {
       silentShortcut: '快捷触发时是否关闭参数错误提示。',
       moreSilent: '快捷触发时是否进一步关闭更多错误提示。',
       autoUseDefaultTexts: '未提供文字时是否自动使用后端默认文字。',
-      autoUseSenderAvatarWhenOnlyOne: '仅需要 1 张图片且未提供时，是否自动使用发送者头像。',
+      autoUseSenderAvatarWhenOnlyOne:
+        '仅需要 1 张图片且未提供时，是否自动使用发送者头像。',
       autoUseSenderAvatarWhenOneLeft:
         '已提供部分图片且只差 1 张达到最小要求时，是否自动补发送者头像。',
       enableProtectedTargetSwap:
         '是否启用受保护目标互换。命中受保护 QQ 时，会交换发送者与目标头像位置。',
-      protectedTargetUserId: '受保护的目标 QQ 号。',
+      protectedTargetUserIds: '受保护的目标 QQ 号列表。仅在启用保护模式后生效。',
     },
     {
       $desc: '图片保护配置',

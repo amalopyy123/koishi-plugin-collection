@@ -11,7 +11,7 @@ export interface GenerateCommandConfig {
   autoUseSenderAvatarWhenOnlyOne: boolean
   autoUseSenderAvatarWhenOneLeft: boolean
   enableProtectedTargetSwap: boolean
-  protectedTargetUserId: string
+  protectedTargetUserIds: string[]
 }
 
 export interface ImageProtectionConfig {
@@ -93,7 +93,7 @@ export const GenerateCommandConfig = Schema.intersect([
     autoUseSenderAvatarWhenOnlyOne: Schema.boolean().default(true),
     autoUseSenderAvatarWhenOneLeft: Schema.boolean().default(true),
     enableProtectedTargetSwap: Schema.boolean().default(false),
-    protectedTargetUserId: Schema.string().role('secret').default(''),
+    protectedTargetUserIds: Schema.array(Schema.string()).role('table').default([]),
   }),
 ]) as Schema<GenerateCommandConfig>
 

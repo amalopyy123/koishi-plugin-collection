@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-gouqi-memes-api-custom",
   "description": "自用，基于 Python 版 meme 后端的 Koishi 表情包插件自定义分支",
-  "version": "2.1.12",
+  "version": "2.1.16",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -9,6 +9,8 @@
     "dist"
   ],
   "license": "MIT",
+  "author": "gouqi",
+  "homepage": "https://github.com/amalopyy123/koishi-plugin-collection",
   "scripts": {
     "build": "tsc -p .",
     "dev": "tsc -p . --watch",
